@@ -9,11 +9,25 @@
 		"default_icon": "logo_small.png",
 		"default_popup": "index.html"
 	},
-	"permissions": ["activeTab", "storage", "scripting"],
+	"permissions": ["activeTab", "storage", "scripting", "tabs", "background"],
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
-			"js": ["content.js"]
+			"js": ["content.js"],
+			"run_at": "document_start"
 		}
-	]
+	],
+	"host_permissions": [
+		"https://libraries.unbxdapi.com/*",
+		"<all_urls>"
+	  ],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"web_accessible_resources": [
+		{
+		  "resources": ["scripts/vanillaSearch.min.js", "https://libraries.unbxdapi.com/search-sdk/v2.0.30-bevilles/vanillaSearch.min.js"],
+		  "matches": ["<all_urls>"]
+		}
+	  ]
 }

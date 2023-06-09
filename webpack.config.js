@@ -35,11 +35,15 @@ module.exports = {
 					to: path.resolve("./public/dist"),
 				},
 				{
-					from: path.resolve("./content.js"),
+					from: path.resolve("./public/content.js"),
 					to: path.resolve("./public/dist"),
 				},
 				{
-					from: path.resolve("./background.js"),
+					from: path.resolve("./public/background.js"),
+					to: path.resolve("./public/dist"),
+				},
+				{
+					from: path.resolve("./public/scripts/vanillaSearch.min.js"),
 					to: path.resolve("./public/dist"),
 				},
 			],
