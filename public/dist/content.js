@@ -353,6 +353,13 @@
 		// chrome.runtime.sendMessage('dhdgffkkebhmkfjojejmpbldmpobfkfo', { message: 'Hello from sender extension', config: request.config });
 	
 		}
+
+		if (request.message === 'on_cdn_url') {
+			
+	
+		}
+
+
 	  });
 
   })(window)

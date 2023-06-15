@@ -1,0 +1,113 @@
+{
+	"loader": {
+		"el": "document.getElementById(\"loaderEl\")",
+		"template": "function(){return'<div class=\"UNX-loader\">Loading search results....</div>'}"
+	},
+	"siteKey": "ss-unbxd-betta-prod35741656525409",
+	"apiKey": "aed56fa947d16c170c4b66a8e558ec49",
+	"searchBoxEl": null,
+	"searchButtonEl": null,
+	"unbxdAnalytics": "true",
+	"products": {
+		"productType": "SEARCH",
+		"el": "document.getElementById(\"searchResultsWrapper\")",
+		"gridCount": "1",
+		"productItemClass": "product-item",
+		"defaultImage": "https://www.betta.com.au/media/catalog/product/placeholder/default/placeholder_265x265.jpg",
+		"tagName": "ol",
+		"productAttributes": "['title', 'uniqueId', 'price', 'originalPrice', 'sku', 'createdAt', 'productUrl', 'productLink', 'imageUrl', 'description', 'availabilityText', 'grade', 'enableToGoLive', 'shortDescription', 'productType', 'manufacturer', 'modelNumber', 'customOrder', 'miele', 'clearance', 'useRegionalPricingMode', 'isPromotion', 'visibilitySearch', 'offerStart', 'offerEnd', 'redemptionCutOff', 'viewMoreUrl', 'productLabel', 'orderedQty', 'allSourceQty', 'popularity']",
+		"attributesMap": "{\n    \"unxTitle\": \"title\",\n    \"unxImageUrl\": \"imageUrl\",\n    \"unxPrice\": \"price\",\n    \"unxStrikePrice\": \"originalPrice\",\n    \"unxId\": \"uniqueId\",\n    \"unxDescription\": \"description\"\n}",
+		"onProductClick": "function(t,e){}",
+		"htmlAttributes": "{\n    \"class\": \"filterproducts products list items product-items\"\n}"
+	},
+	"facet": {
+		"facetsEl": "document.getElementById(\"facetsWrapper\")",
+		"facetMultiSelect": "true",
+		"facetClass": "UNX-facets-block",
+		"facetAction": "click",
+		"selectedFacetClass": "UNX-selected-facet-btn",
+		"selectedFacetsEl": "document.getElementById(\"selectedFacetWrapper\")",
+		"clearAllText": "Clear my selections",
+		"facetMultilevel": "true",
+		"facetMultilevelName": "Categories",
+		"multiLevelFacetSelectorClass": "UNX-multilevel-facet",
+		"facetDepth": "2",
+		"clearFacetsSelectorClass": "UNX-clear-facet",
+		"removeFacetsSelectorClass": "UNX-remove-facet",
+		"applyMultipleFilters": "false",
+		"applyButtonText": "Apply",
+		"clearButtonText": "Clear",
+		"isCollapsible": "true",
+		"defaultOpen": "FIRST",
+		"isSearchable": "false",
+		"searchPlaceHolder": "Search Filter",
+		"enableViewMore": "true",
+		"viewMoreLimit": "10",
+		"tagName": "DIV",
+		"rangeWidgetConfig": "{\n    \"minLabel\": \"\",\n    \"maxLabel\": \"\",\n    \"prefix\": \"$\"\n}",
+		"onFacetLoad": "function (t) {}",
+		"viewMoreText": "[\"Show All\", \"Show Less\"]",
+		"htmlAttributes": "{\"class\": \"UNX-facets-results-block\"}"
+	},
+	"pagination": {
+		"enabled": true,
+		"el": "document.querySelector(\".unbxd-pagination\")",
+		"type": "FIXED_PAGINATION",
+		"pageLimit": "4",
+		"tagName": "DIV",
+		"pageClass": "UNX-page-items",
+		"selectedPageClass": "UNX-selected-page-item",
+		"infiniteScrollTriggerEl": "window",
+		"heightDiffToTriggerNextPage": "100",
+		"action": "click",
+		"onPaginate": "function (paginationInfo) { }",
+		"htmlAttributes": "{\n  \"class\": \"UNX-pagination-size-block\"\n}"
+	},
+	"pagesize": {
+		"enabled": true,
+		"el": "document.getElementById(\"unbxd-pagesize\")",
+		"pageSize": "12",
+		"pageSizeClass": "limiter-options",
+		"selectedPageSizeClass": null,
+		"action": "change",
+		"tagName": "DIV",
+		"options": "[12, 9999]",
+		"htmlAttributes": "{\n  \"class\": \"UNX-page-size-block\"\n}"
+	},
+	"sort": {
+		"enabled": true,
+		"el": "document.getElementById(\"unbxd-sort\")",
+		"sortClass": "sorter-options",
+		"selectedSortClass": "UNX-selected-sort",
+		"action": "change",
+		"tagName": "DIV",
+		"options": "[\n    {\n        \"value\": \"popularity desc\",\n        \"text\": \"Popularity\",\n        \"friendlyUrlText\": \"popularity\"\n    },\n    {\n        \"value\": \"price asc\",\n        \"text\": \"Lowest price\",\n        \"friendlyUrlText\": \"price-low-high\"\n    },\n    {\n        \"value\": \"price desc\",\n        \"text\": \"Highest price\",\n        \"friendlyUrlText\": \"price-high-low\"\n    },\n    {\n        \"value\": \"createdAt desc\",\n        \"text\": \"Newest first\",\n        \"friendlyUrlText\": \"newest\"\n    },\n    {\n        \"value\": \"manufacturer asc\",\n        \"text\": \"Brand\",\n        \"friendlyUrlText\": \"manufacturer\"\n    }\n]",
+		"htmlAttributes": "{\n  \"class\": \"UNX-sort-block-lb\"\n}"
+	},
+	"productView": {
+		"enabled": false
+	},
+	"breadcrumb": {
+		"enabled": false
+	},
+	"spellCheck": {
+		"enabled": false
+	},
+	"banner": {
+		"enabled": false
+	},
+	"variants": {
+		"enabled": false,
+		"count": "1",
+		"groupBy": "",
+		"attributes": "[]",
+		"mapping": "{\"image_url\": \"v_image_url\"}"
+	},
+	"swatches": {
+		"enabled": false
+	},
+	"noResults": {
+		"template": "function(query) { if (Object.values(unbxdSearch.state.selectedFacets).length === 0 && Object.values(unbxdSearch.state.rangeFacet).length === 0) { jQuery('#layered-filter-block').hide(); } return `<div class=\"message info empty\"><div>We can't find products matching the selection.</div></div>`;}",
+		"el": "document.getElementById(\"noResultWrapper\")"
+	}
+}

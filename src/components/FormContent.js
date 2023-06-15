@@ -35,18 +35,20 @@ const FormContent = (props = {}) => {
 		validator,
 		siteKey,
 		configKey,
+		formData,
+		setFormData,
+		jsonData,
+		setJsonData,
 	} = props;
 
 	// let masterConfig = {};
 
-	const [ formData, setFormData ] = useState({});
-	const [ jsonData, setJsonData ] = useState();
-	const [ fsCodeEditorData, setFSCodeEditorData ] = useState(null);
-	const [ publishedBuilderLink, setPublishedBuilderLink ] = useState("");
-	const [ publishedPreviewLink, setPublishedPreviewLink ] = useState("");
-	const [ customFileNameBool, setCustomFileNameBool ] = useState("NO");
+	const [fsCodeEditorData, setFSCodeEditorData] = useState(null);
+	const [publishedBuilderLink, setPublishedBuilderLink] = useState("");
+	const [publishedPreviewLink, setPublishedPreviewLink] = useState("");
+	const [customFileNameBool, setCustomFileNameBool] = useState("NO");
 	// const [customFileNameBool, setCustomFileNameBool] = useState(false);
-	const [ customFileName, setCustomFileName ] = useState(
+	const [customFileName, setCustomFileName] = useState(
 		configKey !== undefined && configKey.length > 0 ? configKey : ""
 	);
 
@@ -57,8 +59,8 @@ const FormContent = (props = {}) => {
 	const publishSuccessModalRef = useRef();
 	const importCodeModalRef = useRef();
 
-	let [ publishPopUp, setPublishPopUp ] = useState(false);
-	let [ publishStatus, setPublishStatus ] = useState(false);
+	let [publishPopUp, setPublishPopUp] = useState(false);
+	let [publishStatus, setPublishStatus] = useState(false);
 
 	const inputJSONFile = useRef(null);
 
@@ -78,13 +80,13 @@ const FormContent = (props = {}) => {
 		if (moduleKey) {
 			setFormData({
 				...formData,
-				[ moduleKey ]: { ...formData[ moduleKey ], ...data },
+				[moduleKey]: { ...formData[moduleKey], ...data },
 			});
 			console.log("if condition updateFormData");
 			setJsonData(
 				exportAllJS("import", {
 					...formData,
-					[ moduleKey ]: { ...formData[ moduleKey ], ...data },
+					[moduleKey]: { ...formData[moduleKey], ...data },
 				})
 			);
 		} else {
@@ -94,74 +96,81 @@ const FormContent = (props = {}) => {
 		}
 	};
 
-	useEffect(() => {
-		// console.log("siteKey:", siteKey, "configKey:", configKey);
-		if (siteKey !== undefined && configKey !== undefined) {
-			// console.log("retrieving configs");
-			// debugger;
-			if (localStorage.getItem(`config-${siteKey}-${configKey}`) !== null) {
-				let config = localStorage.getItem(`config-${siteKey}-${configKey}`);
-				console.log("useEffect localstorage defined");
-				setFormData(JSON.parse(config));
-				setJsonData(exportAllJS("import", JSON.parse(config)));
-				// validator(JSON.parse(config));
-				// displaySuccess("Retrieved and applied configurations.");
-			} else {
-				axios
-					.get("http://localhost:5000/retrieve", {
-						params: { siteKey: siteKey, configKey: configKey },
-					})
-					.then((response) => {
-						// handle success
-						if (response.data.status === "error") {
-							// console.log(
-							// 	"No saved configurations found. Applying default configurations."
-							// );
-							console.log("useEffect axios error defined");
-							setFormData(defaultConfig);
-							setJsonData(exportAllJS("import", defaultConfig));
-							// displayError(
-							// 	`No saved configurations found. Applying default configurations.`
-							// );
-							return;
-						}
+	// useEffect(()=>{
+	// 	const config = localStorage.getItem('config');
+	// 	if(config){
+	// 		setFormData(JSON.parse(config))
+	// 	}
+	// }, [])
 
-						// console.log("No error, continuing.");
-						console.log("useEffect axios noerror defined");
-						setFormData(response.data.config);
-						setJsonData(exportAllJS("import", response.data.config));
-						// displaySuccess("Retrieved and applied configurations.");
-					})
-					.catch((error) => {
-						// handle error
-						console.error(
-							"Could not retrieve the configurations as server is down."
-						);
-						// console.log(error.message);
-						setFormData(defaultConfig);
-						setJsonData(exportAllJS("import", defaultConfig));
-						// displayError(
-						// 	`${error.message}: Server is down. Could not retrieve configurations.`
-						// );
-					});
-			}
-		} else {
-			// console.log(localStorage.getItem("config"));
-			if (localStorage.getItem("config") === null) {
-				console.log("useEffect nolocalStorage undefined");
-				setFormData(defaultConfig);
-				setJsonData(exportAllJS("import", defaultConfig));
-				// displayInfo("Default configurations have been applied.");
-			} else {
-				let config = localStorage.getItem("config");
-				console.log("useEffect localStorage undefined");
-				setFormData(JSON.parse(config));
-				setJsonData(exportAllJS("import", JSON.parse(config)));
-				// (config);
-				// displaySuccess("Retrieved and applied saved changes.");
-			}
-		}
-	}, []);
+	// useEffect(() => {
+	// 	// console.log("siteKey:", siteKey, "configKey:", configKey);
+	// 	if (siteKey !== undefined && configKey !== undefined) {
+	// 		// console.log("retrieving configs");
+	// 		// debugger;
+	// 		if (localStorage.getItem(`config-${siteKey}-${configKey}`) !== null) {
+	// 			let config = localStorage.getItem(`config-${siteKey}-${configKey}`);
+	// 			console.log("useEffect localstorage defined");
+	// 			setFormData(JSON.parse(config));
+	// 			setJsonData(exportAllJS("import", JSON.parse(config)));
+	// 			// validator(JSON.parse(config));
+	// 			// displaySuccess("Retrieved and applied configurations.");
+	// 		} else {
+	// 			axios
+	// 				.get("http://localhost:5000/retrieve", {
+	// 					params: { siteKey: siteKey, configKey: configKey },
+	// 				})
+	// 				.then((response) => {
+	// 					// handle success
+	// 					if (response.data.status === "error") {
+	// 						// console.log(
+	// 						// 	"No saved configurations found. Applying default configurations."
+	// 						// );
+	// 						console.log("useEffect axios error defined");
+	// 						setFormData(defaultConfig);
+	// 						setJsonData(exportAllJS("import", defaultConfig));
+	// 						// displayError(
+	// 						// 	`No saved configurations found. Applying default configurations.`
+	// 						// );
+	// 						return;
+	// 					}
+
+	// 					// console.log("No error, continuing.");
+	// 					console.log("useEffect axios noerror defined");
+	// 					setFormData(response.data.config);
+	// 					setJsonData(exportAllJS("import", response.data.config));
+	// 					// displaySuccess("Retrieved and applied configurations.");
+	// 				})
+	// 				.catch((error) => {
+	// 					// handle error
+	// 					console.error(
+	// 						"Could not retrieve the configurations as server is down."
+	// 					);
+	// 					// console.log(error.message);
+	// 					setFormData(defaultConfig);
+	// 					setJsonData(exportAllJS("import", defaultConfig));
+	// 					// displayError(
+	// 					// 	`${error.message}: Server is down. Could not retrieve configurations.`
+	// 					// );
+	// 				});
+	// 		}
+	// 	} else {
+	// 		// console.log(localStorage.getItem("config"));
+	// 		if (localStorage.getItem("config") === null) {
+	// 			console.log("useEffect nolocalStorage undefined");
+	// 			setFormData(defaultConfig);
+	// 			setJsonData(exportAllJS("import", defaultConfig));
+	// 			// displayInfo("Default configurations have been applied.");
+	// 		} else {
+	// 			let config = localStorage.getItem("config");
+	// 			console.log("useEffect localStorage undefined");
+	// 			setFormData(JSON.parse(config));
+	// 			setJsonData(exportAllJS("import", JSON.parse(config)));
+	// 			// (config);
+	// 			// displaySuccess("Retrieved and applied saved changes.");
+	// 		}
+	// 	}
+	// }, []);
 
 	const handlePublishStatus = () => {
 		setPublishPopUp(false);
@@ -182,8 +191,9 @@ const FormContent = (props = {}) => {
 			)}`;
 			const link = document.createElement("a");
 			link.href = jsonString;
-			link.download = `${formData.siteKey}${configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
-				}.json`;
+			link.download = `${formData.siteKey}${
+				configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
+			}.json`;
 			// link.download = "configurations.json";
 			link.click();
 			axios
@@ -206,11 +216,13 @@ const FormContent = (props = {}) => {
 					setPublishStatus(true);
 					// setCodeChangeStatus(false);
 					setPublishedBuilderLink(
-						`http://localhost:3030/builder/${siteKey}/${customFileNameBool === "NO" ? configKey : customFileName
+						`http://localhost:3030/builder/${siteKey}/${
+							customFileNameBool === "NO" ? configKey : customFileName
 						}`
 					);
 					setPublishedPreviewLink(
-						`http://localhost:3030/preview/${siteKey}/${customFileNameBool === "NO" ? configKey : customFileName
+						`http://localhost:3030/preview/${siteKey}/${
+							customFileNameBool === "NO" ? configKey : customFileName
 						}`
 					);
 				})
@@ -232,8 +244,9 @@ const FormContent = (props = {}) => {
 			)}`;
 			const link = document.createElement("a");
 			link.href = jsonString;
-			link.download = `${formData.siteKey}${configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
-				}.json`;
+			link.download = `${formData.siteKey}${
+				configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
+			}.json`;
 			// link.download = "configurations.json";
 			link.click();
 			axios
@@ -295,37 +308,37 @@ const FormContent = (props = {}) => {
 		let configObjInner = "\t{\n";
 		for (let key of Object.keys(code)) {
 			// console.log(key, typeof code[key]);
-			if (typeof code[ key ] === "string") {
+			if (typeof code[key] === "string") {
 				// console.log("string:", key);
 				try {
-					const ele = JSON.parse(code[ key ]);
+					const ele = JSON.parse(code[key]);
 					// console.log("JSON.parse:", key);
-					configObjInner += `\t\t${key}: ${code[ key ]}, \n`;
+					configObjInner += `\t\t${key}: ${code[key]}, \n`;
 				} catch (arrErr) {
 					try {
 						//element
-						const ele = eval(code[ key ]);
+						const ele = eval(code[key]);
 						// console.log("eval:", key, code[key]);
-						configObjInner += `\t\t${key}: \`${code[ key ]}\`, \n`;
+						configObjInner += `\t\t${key}: \`${code[key]}\`, \n`;
 						// console.log("eval element:", key);
 					} catch (eleErr) {
 						try {
 							//function
-							const ele = eval("(" + code[ key ] + ")");
+							const ele = eval("(" + code[key] + ")");
 							// console.log("eval func:", key);
-							configObjInner += `\t\t${key}: ${code[ key ]}, \n`;
+							configObjInner += `\t\t${key}: ${code[key]}, \n`;
 							// console.log("eval function:", key);
 						} catch (funcErr) {
 							// console.log("not in eval:", key);
-							configObjInner += `\t\t${key}: \`${code[ key ]}\`, \n`;
+							configObjInner += `\t\t${key}: \`${code[key]}\`, \n`;
 							// console.log("not in eval:", key);
 						}
 					}
 				}
-			} else if (typeof code[ key ] === "number") {
-				configObjInner += `\t\t${key}: ${code[ key ].toString()}, \n`;
-			} else if (typeof code[ key ] === "boolean") {
-				configObjInner += `\t\t${key}: ${code[ key ].toString()}, \n`;
+			} else if (typeof code[key] === "number") {
+				configObjInner += `\t\t${key}: ${code[key].toString()}, \n`;
+			} else if (typeof code[key] === "boolean") {
+				configObjInner += `\t\t${key}: ${code[key].toString()}, \n`;
 			}
 		}
 		configObjInner += "\t}";
@@ -343,17 +356,17 @@ const FormContent = (props = {}) => {
 			let configObj = `{\n`;
 			for (let key of Object.keys(formData)) {
 				// console.log(key);
-				if (typeof formData[ key ] === "string") {
+				if (typeof formData[key] === "string") {
 					try {
 						//element
-						const ele = eval(formData[ key ]);
-						configObj += `\t${key}: \`${formData[ key ]}\`, \n`;
+						const ele = eval(formData[key]);
+						configObj += `\t${key}: \`${formData[key]}\`, \n`;
 					} catch (eleErr) {
-						configObj += `\t${key}: \`${formData[ key ]}\`, \n`;
+						configObj += `\t${key}: \`${formData[key]}\`, \n`;
 					}
-				} else if (typeof formData[ key ] === "object") {
+				} else if (typeof formData[key] === "object") {
 					// console.log(`***********\n${key}`);
-					configObj += `\t${key}: ${exportIndividualJS(formData[ key ])}, \n`;
+					configObj += `\t${key}: ${exportIndividualJS(formData[key])}, \n`;
 					// console.log(`\n***********`);
 					// exportIndividualJSON(formData[key]);
 				}
@@ -366,8 +379,9 @@ const FormContent = (props = {}) => {
 			)}`;
 			const link = document.createElement("a");
 			link.href = jsonString;
-			link.download = `${formData.siteKey}${configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
-				}.js`;
+			link.download = `${formData.siteKey}${
+				configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
+			}.js`;
 			// link.download = "configurations.json";
 			link.click();
 		} else {
@@ -376,16 +390,16 @@ const FormContent = (props = {}) => {
 			let configObj = `{\n`;
 			for (let key of Object.keys(code)) {
 				// console.log(key);
-				if (typeof code[ key ] === "string") {
+				if (typeof code[key] === "string") {
 					try {
 						//element
-						const ele = eval(code[ key ]);
-						configObj += `\t${key}: \`${code[ key ]}\`, \n`;
+						const ele = eval(code[key]);
+						configObj += `\t${key}: \`${code[key]}\`, \n`;
 					} catch (eleErr) {
-						configObj += `\t${key}: \`${code[ key ]}\`, \n`;
+						configObj += `\t${key}: \`${code[key]}\`, \n`;
 					}
-				} else if (typeof code[ key ] === "object") {
-					configObj += `\t${key}: ${exportIndividualJS(code[ key ])}, \n`;
+				} else if (typeof code[key] === "object") {
+					configObj += `\t${key}: ${exportIndividualJS(code[key])}, \n`;
 					// exportIndividualJSON(formData[key]);
 				}
 			}
@@ -401,8 +415,9 @@ const FormContent = (props = {}) => {
 		)}`;
 		const link = document.createElement("a");
 		link.href = jsonString;
-		link.download = `${formData.siteKey}${configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
-			}.json`;
+		link.download = `${formData.siteKey}${
+			configKey !== undefined && configKey.length > 0 ? `-${configKey}` : ""
+		}.json`;
 		// link.download = "configurations.json";
 		link.click();
 	};
@@ -428,15 +443,15 @@ const FormContent = (props = {}) => {
 		const configString = {};
 		for (let conf in config) {
 			// console.log(config[conf], typeof config[conf]);
-			if (typeof config[ conf ] === "function") {
-				configString[ `${conf}` ] = config[ conf ].toString();
-			} else if (typeof config[ conf ] === "boolean") {
-				configString[ `${conf}` ] = config[ conf ].toString();
-			} else if (typeof config[ conf ] === "number") {
-				configString[ `${conf}` ] = config[ conf ].toString();
-			} else if (typeof config[ conf ] === "object") {
-				console.log("config[conf]:", conf, config[ conf ], typeof config[ conf ]);
-				if (config[ conf ]) {
+			if (typeof config[conf] === "function") {
+				configString[`${conf}`] = config[conf].toString();
+			} else if (typeof config[conf] === "boolean") {
+				configString[`${conf}`] = config[conf].toString();
+			} else if (typeof config[conf] === "number") {
+				configString[`${conf}`] = config[conf].toString();
+			} else if (typeof config[conf] === "object") {
+				console.log("config[conf]:", conf, config[conf], typeof config[conf]);
+				if (config[conf]) {
 					// if (config[conf].id !== undefined && config[conf].id.length > 0) {
 					// 	configString[
 					// 		`${conf}`
@@ -447,11 +462,11 @@ const FormContent = (props = {}) => {
 					// 		conf
 					// 	].className.replaceAll(" ", ".")}")`;
 					// } else {
-					configString[ `${conf}` ] = JSON.stringify(config[ conf ]);
+					configString[`${conf}`] = JSON.stringify(config[conf]);
 					// }
 				}
-			} else if (typeof config[ conf ] === "string") {
-				configString[ `${conf}` ] = config[ conf ];
+			} else if (typeof config[conf] === "string") {
+				configString[`${conf}`] = config[conf];
 			}
 		}
 		// console.log(configString);
@@ -461,11 +476,11 @@ const FormContent = (props = {}) => {
 	const evaluateAll = (configs) => {
 		const stringifiedConfig = {};
 		for (let config in configs) {
-			console.log(config, ":", configs[ config ], typeof configs[ config ]);
-			if (typeof configs[ config ] === "string") {
-				stringifiedConfig[ `${config}` ] = configs[ config ];
-			} else if (typeof configs[ config ] === "object") {
-				stringifiedConfig[ `${config}` ] = evaluateIndividual(configs[ config ]);
+			console.log(config, ":", configs[config], typeof configs[config]);
+			if (typeof configs[config] === "string") {
+				stringifiedConfig[`${config}`] = configs[config];
+			} else if (typeof configs[config] === "object") {
+				stringifiedConfig[`${config}`] = evaluateIndividual(configs[config]);
 			}
 		}
 		// console.log(
@@ -476,8 +491,9 @@ const FormContent = (props = {}) => {
 	};
 
 	const applyImportedCode = (code) => {
-		console.log("code type:", typeof code);
+		console.log("code type:", typeof code, code);
 		try {
+			console.log("parsing...");
 			const parsedCode = JSON.parse(code);
 			setFormData(parsedCode);
 			validator(parsedCode);
@@ -485,18 +501,28 @@ const FormContent = (props = {}) => {
 			setSelectedAcc(null);
 			// console.log("parsedCode");
 		} catch (err) {
-			const validatedCode = eval(`(${code})`);
-			const parsedCode = evaluateAll(validatedCode);
-			setFormData(JSON.parse(parsedCode));
-			validator(JSON.parse(parsedCode));
+			console.log("evaluating");
+			const escapedCode = `{
+				loader: {
+					el: \`document.getElementById("loaderEl")\`
+				}
+			}`;
+			let evalSub = new Function("a", "return " + escapedCode);
+			console.log(evalSub(escapedCode));
+			// console.log(new Function("return " + escapedCode)());
+			// console.log("validatedCode:", validatedCode);
+			// const validatedCode = eval(`(${code})`);
+			// const parsedCode = evaluateAll(validatedCode);
+			// setFormData(JSON.parse(parsedCode));
+			// validator(JSON.parse(parsedCode));
 			// setJsonData();
-			setSelectedAcc(null);
+			// setSelectedAcc(null);
 			// console.log("validatedCode");
 		}
 	};
 
 	const inputFileChange = (e) => {
-		const jsonFile = e.target.files[ 0 ];
+		const jsonFile = e.target.files[0];
 		let encodedData;
 		let fileReader = new FileReader();
 		fileReader.readAsDataURL(jsonFile);
@@ -534,6 +560,7 @@ const FormContent = (props = {}) => {
 				"Content-Type": "application/json",
 			},
 		};
+		// localStorage.setItem('config', JSON.stringify(formData, null, 4))
 		axios.post(
 			"http://localhost:5050/bundleScripts",
 			JSON.stringify(
@@ -556,6 +583,11 @@ const FormContent = (props = {}) => {
 			// 		});
 			// 	}
 			// );
+			// localStorage.setItem('config', JSON.stringify(formData, null, 4))
+
+			chrome.runtime.sendMessage({message: "on_cdn_url"}, (response) => {
+				console.log(response.message);
+			  });
 		})
 	}
 
@@ -610,7 +642,7 @@ const FormContent = (props = {}) => {
 										moduleConfig={formConfig}
 										formData={
 											formConfig.moduleKey
-												? formData[ formConfig.moduleKey ]
+												? formData[formConfig.moduleKey]
 												: formData
 										}
 									/>
@@ -620,53 +652,39 @@ const FormContent = (props = {}) => {
 					);
 				})}
 				<div className="btnSection">
-					<InlineModal
-						activatorAction="click"
-						className="viewMoreDropdown"
-						halign="left"
-						isModalOpen={false}
-					// onModalStateChange={function noRefCheck() {}}
-					>
-						<InlineModalActivator>
-							<div>More Options</div>
-						</InlineModalActivator>
-						<InlineModalBody>
-							<div
-								className="viewCode"
-								onClick={() => {
-									setSelectedAcc(null);
-									viewJSONModalRef.current.showModal();
-								}}
-							>
-								<span></span>
-								View Code
-							</div>
-
-							<div
-								className="uploadToCDN"
-								onClick={() => {
-									// document.getElementById("viewMoreDropdown").style.display =
-									// 	"none";
-									confirmModalRef.current.showModal();
-								}}
-							>
-								<span></span>
-								Create Demo Site
-							</div>
-						</InlineModalBody>
-					</InlineModal>
 					<button
 						id="applyBtn"
-						onClick={() => {
-							// validator(formData);
+						onClick={async () => {
 							testApiCall()
-							// console.log('button clicked')
+							// validator(formData);
+
+							// console.log("Clicked on Apply Changes!");
+							// chrome.tabs.query(
+							// 	{ active: true, currentWindow: true },
+							// 	(tabs) => {
+							// 		chrome.tabs.sendMessage(tabs[0].id, {
+							// 			message: "insertScript",
+							// 		});
+							// 	}
+							// );
+							// chrome.runtime.sendMessage((response) => {
+							// 	console.log("Response received:", response);
+							// });
+							// chrome.runtime.sendMessage(
+							// 	{ text: "get-user-data", config: formData },
+							// 	(response) => {
+							// 		// 3. Got an asynchronous response with the data from the service worker
+							// 		console.log("received user data:", response);
+							// 		// initializeUI(response);
+							// 	}
+							// );
 							// chrome.tabs.query(
 							// 	{ active: true, currentWindow: true },
 							// 	(tabs) => {
 							// 		chrome.tabs.sendMessage(tabs[0].id, {
 							// 			message: "apply_changes",
-							// 			config: formData
+							// 		}, (response)=>{
+							// 			console.log(response)
 							// 		});
 							// 	}
 							// );
@@ -928,7 +946,7 @@ const FormContent = (props = {}) => {
 				ref={viewJSONModalRef}
 				showClose={true}
 				className="configModal"
-				onClose={() => { }}
+				onClose={() => {}}
 			>
 				<div className="confirm-modal-body">
 					<div className="btnSection">
@@ -952,6 +970,8 @@ const FormContent = (props = {}) => {
 						<Button appearance="primary" onClick={() => downloadJSON()}>
 							Download as JSON
 						</Button>
+					</div>
+					<div className="btnSection">
 						<Button appearance="primary" onClick={() => copyJSON()}>
 							Copy Code
 						</Button>
@@ -964,14 +984,17 @@ const FormContent = (props = {}) => {
 							// readOnly={true}
 							id="jsonCode"
 							className="jsonCode"
-							value={jsonData}
+							// value={jsonData}
 							// value={exportAllJS("import", formData)}
-							// value={JSON.stringify(formData, null, 4)}
+							value={JSON.stringify(formData, null, 4)}
 							placeholder="Insert code here..."
 							height="100%"
 							width="100%"
-							extensions={[ javascript({ json: true }) ]}
-							onChange={(code) => setJsonData(code)}
+							extensions={[javascript({ json: true })]}
+							onChange={(code) => {
+								setFormData(JSON.parse(code));
+								setJsonData(code);
+							}}
 						/>
 					</div>
 				</div>
@@ -1001,7 +1024,7 @@ const FormContent = (props = {}) => {
 						appearance="primary"
 						className="update-json"
 						onClick={() => {
-							applyImportedCode(jsonData);
+							applyImportedCode(JSON.stringify(formData, null, 4));
 							viewJSONModalRef.current.hideModal();
 						}}
 					>
@@ -1050,7 +1073,7 @@ const FormContent = (props = {}) => {
 							placeholder="Insert code here..."
 							height="100%"
 							width="100%"
-							extensions={[ javascript({ json: true }) ]}
+							extensions={[javascript({ json: true })]}
 							onChange={(code) => setJsonData(code)}
 						/>
 					</div>
@@ -1071,7 +1094,8 @@ const FormContent = (props = {}) => {
 						appearance="primary"
 						className="update-json"
 						onClick={() => {
-							applyImportedCode(jsonData);
+							applyImportedCode(JSON.stringify(formData, null, 4));
+							// applyImportedCode(jsonData);
 							importCodeModalRef.current.hideModal();
 						}}
 					>

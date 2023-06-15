@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import FormOptions from "./FormOptions";
 import FormBuilder from "./FormBuilder";
 import { getModuleConfigs, getEleDataType } from "../utils/configUtils";
 
@@ -16,6 +17,7 @@ const DashboardContent = (props) => {
 	// } = props;
 
 	const [validatedConfig, setValidatedConfig] = useState({});
+	const [viewConfig, setViewConfig] = useState(true);
 
 	const { siteKey, configKey } = useParams();
 
@@ -159,88 +161,27 @@ const DashboardContent = (props) => {
 		);
 	};
 
-	// const hideConfigTab = () => {
-	// 	document.querySelector(".hideConfigTab").style.display = "none";
-	// 	document.querySelector(".viewConfigTab").style.display = "flex";
-	// 	// document.querySelector(".formBuilder").style.width = "0%";
-	// 	document.querySelector(".formBuilder").style.display = "none";
-	// 	document.querySelector(".demoSite").style.width = "100%";
-	// };
-	// const showConfigTab = () => {
-	// 	document.querySelector(".viewConfigTab").style.display = "none";
-	// 	document.querySelector(".hideConfigTab").style.display = "flex";
-	// 	// document.querySelector(".formBuilder").style.width = "30%";
-	// 	document.querySelector(".formBuilder").style.display = "flex";
-	// 	document.querySelector(".demoSite").style.width = "70%";
-	// };
-
-	// useEffect(() => {
-	// 	console.log("siteKey:", siteKey, "configKey:", configKey);
-	// 	if (siteKey !== undefined && configKey !== undefined) {
-	// 		// console.log("retrieving configs");
-	// 		// debugger;
-	// 		if (localStorage.getItem(`config-${siteKey}-${configKey}`) !== null) {
-	// 			let config = localStorage.getItem(`config-${siteKey}-${configKey}`);
-	// 			// setFormData(JSON.parse(config));
-	// 			validator(JSON.parse(config));
-
-	// 			// displaySuccess("Retrieved and applied configurations.");
-	// 		} else {
-	// 			axios
-	// 				.get("http://localhost:5000/retrieve", {
-	// 					params: { siteKey: siteKey, configKey: configKey },
-	// 				})
-	// 				.then((response) => {
-	// 					// handle success
-	// 					if (response.data.status === "error") {
-	// 						// console.log(
-	// 						// 	"No saved configurations found. Applying default configurations."
-	// 						// );
-	// 						// setFormData(defaultConfig);
-	// 						validator(defaultConfig);
-	// 						// displayError(
-	// 						// 	`No saved configurations found. Applying default configurations.`
-	// 						// );
-	// 						return;
-	// 					}
-
-	// 					// console.log("No error, continuing.");
-	// 					// setFormData(response.data.config);
-	// 					validator(response.data.config);
-	// 					// displaySuccess("Retrieved and applied configurations.");
-	// 				})
-	// 				.catch((error) => {
-	// 					// handle error
-	// 					console.error(
-	// 						"Could not retrieve the configurations as server is down."
-	// 					);
-	// 					// console.log(error.message);
-	// 					// setFormData(defaultConfig);
-	// 					validator(defaultConfig);
-	// 					// displayError(
-	// 					// 	`${error.message}: Server is down. Could not retrieve configurations.`
-	// 					// );
-	// 				});
-	// 		}
-	// 	} else {
-	// 		// console.log(localStorage.getItem("config"));
-	// 		if (localStorage.getItem("config") === null) {
-	// 			// setFormData(defaultConfig);
-	// 			validator(defaultConfig);
-	// 			// displaySuccess("Default configurations have been applied.");
-	// 			// displayInfo("Default configurations have been applied.");
-	// 		} else {
-	// 			let config = localStorage.getItem("config");
-	// 			// setFormData(JSON.parse(config));
-	// 			validator(JSON.parse(config));
-	// 			// displaySuccess("Retrieved and applied saved changes.");
-	// 		}
-	// 	}
-	// }, []);
+	const changeMode = (viewConfig) => {
+		setViewConfig(viewConfig);
+		if (viewConfig) {
+			const configEl = document.querySelector(".config");
+			const codeEl = document.querySelector(".code");
+			configEl.style.borderBottom = "2px solid cornflowerblue";
+			codeEl.style.borderBottom = "2px solid #ccc";
+			setViewConfig(viewConfig);
+		} else {
+			const configEl = document.querySelector(".config");
+			const codeEl = document.querySelector(".code");
+			configEl.style.borderBottom = "2px solid #ccc";
+			codeEl.style.borderBottom = "2px solid cornflowerblue";
+			setViewConfig(viewConfig);
+		}
+	};
 
 	return (
 		<div className="formMaster">
 			{/* Inside formMaster of DashboardContent */}
+			<FormOptions changeMode={changeMode} />
 			<FormBuilder
 				setValidatedConfig={setValidatedConfig}
 				// hideConfigTab={hideConfigTab}
@@ -248,6 +189,7 @@ const DashboardContent = (props) => {
 				validator={validator}
 				configKey={configKey}
 				siteKey={siteKey}
+				viewConfig={viewConfig}
 			/>
 		</div>
 	);

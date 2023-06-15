@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import "./components/unbxdStyle.css";
+// import "./components/unbxdStyle.css";
 import "./components/general.scss";
 
 import "unbxd-react-components/components/theme.css";
 import "unbxd-react-components/components/core.css";
 import FormIcons from "./components/FormIcons";
+import DashboardHeader from "./components/DashboardHeader";
 import DashboardContent from "./components/DashboardContent";
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
 		return (
 			<div className="extension-body">
 				{/* <FormIcons /> */}
+				<DashboardHeader />
 				<DashboardContent />
 				{/* <div className="App">
 					<div className="App-header">

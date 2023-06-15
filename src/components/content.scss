@@ -594,7 +594,8 @@ form {
 
 .formContent {
 	position: relative;
-	width: calc(100% - 60px);
+	width: 690px;
+	height: 500px;
 	margin-left: 60px;
 	display: flex;
 	// max-width: 341px; this has to be removed later on
@@ -675,10 +676,10 @@ form {
 			font-size: 14px;
 
 			.logo {
-				margin: 10px;
-				background-image: url("https://static.thenounproject.com/png/99492-200.png");
+				margin: 10px 10px 20px 10px;
+				background-image: url("https://e7.pngegg.com/pngimages/427/240/png-clipart-sdk-application-icon-blue-angle-text-symbol-apps-sdk-blue-angle.png");
 				background-size: 100% 100%;
-				width: 50px;
+				width: 80px;
 				height: 50px;
 			}
 
@@ -783,130 +784,13 @@ form {
 		// border-right: 1px solid #ccc;
 		background: #f7f7f9;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: center;
 		// justify-content: center;
 		align-items: center;
 		z-index: 4;
 
-		.moreOptionsIcon {
-			background-image: url("https://static.thenounproject.com/png/2854151-200.png");
-			background-size: 100% 100%;
-			width: 20px;
-			height: 20px;
-
-			&:hover {
-				cursor: pointer;
-			}
-		}
-
-		.viewMoreDropdown {
-			.RCB-inline-modal-btn {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 13px;
-				color: #61697d;
-				background-color: #ffffff;
-				padding: 9px 15px;
-				border-radius: 6px;
-				border: 1px solid #a1b3c0;
-				margin: 10px;
-
-				div {
-					text-align: center;
-				}
-			}
-			.RCB-inline-modal-body {
-				position: absolute;
-				bottom: 50px;
-				left: 50px;
-				width: 200px;
-				border: 1px solid #ccc;
-				display: flex;
-				flex-direction: column;
-				background-color: #fff;
-
-				div {
-					cursor: pointer;
-					display: flex;
-					align-items: center;
-
-					color: #273251;
-					font-weight: 500;
-					font-size: 14px;
-					padding: 10px;
-
-					&:hover {
-						background-color: #f7f9fb;
-					}
-				}
-				.viewCode {
-					span {
-						background-image: url("https://static.thenounproject.com/png/1020859-200.png");
-						width: 20px;
-						height: 20px;
-						background-size: 100% 100%;
-						margin-right: 10px;
-					}
-				}
-
-				.downloadJSON {
-					span {
-						background-image: url("https://static.thenounproject.com/png/294431-200.png");
-						width: 20px;
-						height: 20px;
-						background-size: 100% 100%;
-						margin-right: 10px;
-					}
-				}
-
-				.uploadJSON {
-					span {
-						background-image: url("https://static.thenounproject.com/png/1057582-200.png");
-						width: 20px;
-						height: 20px;
-						background-size: 100% 100%;
-						margin-right: 10px;
-					}
-				}
-
-				.uploadToCDN {
-					pointer-events: none;
-					opacity: 0.4;
-					span {
-						background-image: url("https://static.thenounproject.com/png/23675-200.png");
-						width: 20px;
-						height: 20px;
-						background-size: 100% 100%;
-						margin-right: 10px;
-					}
-				}
-
-				.copyJSON {
-					span {
-						background-image: url("https://static.thenounproject.com/png/1346024-200.png");
-						width: 20px;
-						height: 20px;
-						background-size: 100% 100%;
-						margin-right: 10px;
-					}
-				}
-
-				.resetJSON {
-					color: red;
-					span {
-						background-image: url("https://icon-library.com/images/reset-icon-png/reset-icon-png-15.jpg");
-						width: 15px;
-						height: 15px;
-						margin-left: 5px;
-						background-size: 100% 100%;
-						margin-right: 10px;
-					}
-				}
-			}
-		}
-
 		button {
+			width: 60%;
 			display: flex;
 			width: fit-content;
 			height: fit-content;
@@ -970,14 +854,20 @@ form {
 .configModal {
 	z-index: 10;
 	.RCB-modal-body {
-		width: 90%;
-		height: 90%;
+		width: 85%;
+		height: 85%;
+
+		.RCB-modal-header {
+			padding: 0 0 15px 0;
+			font-size: 16px;
+		}
 
 		.RCB-modal-content {
 			// height: 90%;
+			padding: 0;
 
 			.confirm-modal-body {
-				height: 75%;
+				height: 77%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -985,9 +875,18 @@ form {
 				.btnSection {
 					display: flex;
 					flex-direction: row;
-					width: 60%;
 					justify-content: space-between;
-					margin-bottom: 20px;
+					margin: 10px 0 10px 0;
+					// width: 47%;
+
+					&:first-child {
+						width: 100%;
+						margin: 0;
+					}
+
+					button {
+						padding: 10px;
+					}
 				}
 			}
 		}

@@ -4235,10 +4235,11 @@ ReactCodeMirror.displayName = 'CodeMirror';
 
 "use strict";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
-/* harmony import */ var _FormBuilder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3293);
-/* harmony import */ var _utils_configUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(780);
-/* harmony import */ var _inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9711);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5450);
+/* harmony import */ var _FormOptions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3922);
+/* harmony import */ var _FormBuilder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3293);
+/* harmony import */ var _utils_configUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(780);
+/* harmony import */ var _inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9711);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5450);
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -4251,6 +4252,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -4270,7 +4272,11 @@ var DashboardContent = function DashboardContent(props) {
     _useState2 = _slicedToArray(_useState, 2),
     validatedConfig = _useState2[0],
     setValidatedConfig = _useState2[1];
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__/* .useParams */ .UO)(),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    viewConfig = _useState4[0],
+    setViewConfig = _useState4[1];
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__/* .useParams */ .UO)(),
     siteKey = _useParams.siteKey,
     configKey = _useParams.configKey;
   var validator = function validator(formData) {
@@ -4278,7 +4284,7 @@ var DashboardContent = function DashboardContent(props) {
       var validatedData = {};
       // console.log("inside validator:", formData);
       for (var moduleKey in value) {
-        var moduleConfig = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_2__/* .getModuleConfigs */ .RM)(moduleKey);
+        var moduleConfig = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_3__/* .getModuleConfigs */ .RM)(moduleKey);
         var formConfig = formData[moduleKey];
         if (!moduleConfig) {
           if (formConfig !== undefined) {
@@ -4308,7 +4314,7 @@ var DashboardContent = function DashboardContent(props) {
           for (var element in formConfig) {
             if (formConfig[element] !== undefined) {
               if (formConfig[element].toString().length) {
-                var dataType = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_2__/* .getEleDataType */ .DP)(moduleKey, element);
+                var dataType = (0,_utils_configUtils__WEBPACK_IMPORTED_MODULE_3__/* .getEleDataType */ .DP)(moduleKey, element);
                 switch (dataType) {
                   case "element":
                     try {
@@ -4387,96 +4393,35 @@ var DashboardContent = function DashboardContent(props) {
       }
     }, 4);
   };
-
-  // const hideConfigTab = () => {
-  // 	document.querySelector(".hideConfigTab").style.display = "none";
-  // 	document.querySelector(".viewConfigTab").style.display = "flex";
-  // 	// document.querySelector(".formBuilder").style.width = "0%";
-  // 	document.querySelector(".formBuilder").style.display = "none";
-  // 	document.querySelector(".demoSite").style.width = "100%";
-  // };
-  // const showConfigTab = () => {
-  // 	document.querySelector(".viewConfigTab").style.display = "none";
-  // 	document.querySelector(".hideConfigTab").style.display = "flex";
-  // 	// document.querySelector(".formBuilder").style.width = "30%";
-  // 	document.querySelector(".formBuilder").style.display = "flex";
-  // 	document.querySelector(".demoSite").style.width = "70%";
-  // };
-
-  // useEffect(() => {
-  // 	console.log("siteKey:", siteKey, "configKey:", configKey);
-  // 	if (siteKey !== undefined && configKey !== undefined) {
-  // 		// console.log("retrieving configs");
-  // 		// debugger;
-  // 		if (localStorage.getItem(`config-${siteKey}-${configKey}`) !== null) {
-  // 			let config = localStorage.getItem(`config-${siteKey}-${configKey}`);
-  // 			// setFormData(JSON.parse(config));
-  // 			validator(JSON.parse(config));
-
-  // 			// displaySuccess("Retrieved and applied configurations.");
-  // 		} else {
-  // 			axios
-  // 				.get("http://localhost:5000/retrieve", {
-  // 					params: { siteKey: siteKey, configKey: configKey },
-  // 				})
-  // 				.then((response) => {
-  // 					// handle success
-  // 					if (response.data.status === "error") {
-  // 						// console.log(
-  // 						// 	"No saved configurations found. Applying default configurations."
-  // 						// );
-  // 						// setFormData(defaultConfig);
-  // 						validator(defaultConfig);
-  // 						// displayError(
-  // 						// 	`No saved configurations found. Applying default configurations.`
-  // 						// );
-  // 						return;
-  // 					}
-
-  // 					// console.log("No error, continuing.");
-  // 					// setFormData(response.data.config);
-  // 					validator(response.data.config);
-  // 					// displaySuccess("Retrieved and applied configurations.");
-  // 				})
-  // 				.catch((error) => {
-  // 					// handle error
-  // 					console.error(
-  // 						"Could not retrieve the configurations as server is down."
-  // 					);
-  // 					// console.log(error.message);
-  // 					// setFormData(defaultConfig);
-  // 					validator(defaultConfig);
-  // 					// displayError(
-  // 					// 	`${error.message}: Server is down. Could not retrieve configurations.`
-  // 					// );
-  // 				});
-  // 		}
-  // 	} else {
-  // 		// console.log(localStorage.getItem("config"));
-  // 		if (localStorage.getItem("config") === null) {
-  // 			// setFormData(defaultConfig);
-  // 			validator(defaultConfig);
-  // 			// displaySuccess("Default configurations have been applied.");
-  // 			// displayInfo("Default configurations have been applied.");
-  // 		} else {
-  // 			let config = localStorage.getItem("config");
-  // 			// setFormData(JSON.parse(config));
-  // 			validator(JSON.parse(config));
-  // 			// displaySuccess("Retrieved and applied saved changes.");
-  // 		}
-  // 	}
-  // }, []);
-
+  var changeMode = function changeMode(viewConfig) {
+    setViewConfig(viewConfig);
+    if (viewConfig) {
+      var configEl = document.querySelector(".config");
+      var codeEl = document.querySelector(".code");
+      configEl.style.borderBottom = "2px solid cornflowerblue";
+      codeEl.style.borderBottom = "2px solid #ccc";
+      setViewConfig(viewConfig);
+    } else {
+      var _configEl = document.querySelector(".config");
+      var _codeEl = document.querySelector(".code");
+      _configEl.style.borderBottom = "2px solid #ccc";
+      _codeEl.style.borderBottom = "2px solid cornflowerblue";
+      setViewConfig(viewConfig);
+    }
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "formMaster"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FormBuilder__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FormOptions__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z, {
+    changeMode: changeMode
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FormBuilder__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
     setValidatedConfig: setValidatedConfig
     // hideConfigTab={hideConfigTab}
     ,
     validatedConfig: validatedConfig,
     validator: validator,
     configKey: configKey,
-    siteKey: siteKey
+    siteKey: siteKey,
+    viewConfig: viewConfig
   }));
 };
 /* harmony default export */ __webpack_exports__.Z = (DashboardContent);
@@ -4497,6 +4442,10 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(7294);
 // EXTERNAL MODULE: ./src/components/FormIcons.js
 var FormIcons = __webpack_require__(7333);
+// EXTERNAL MODULE: ./src/components/FormContent.js
+var FormContent = __webpack_require__(6570);
+// EXTERNAL MODULE: ./src/components/FormCode.js
+var FormCode = __webpack_require__(2986);
 // EXTERNAL MODULE: ./src/config/formConfig/authentication.js
 var authentication = __webpack_require__(4449);
 // EXTERNAL MODULE: ./src/config/formConfig/searchBox.js
@@ -4573,8 +4522,8 @@ var othersConfig = {
   }]
 };
 /* harmony default export */ var others = (othersConfig);
-// EXTERNAL MODULE: ./src/components/FormContent.js
-var FormContent = __webpack_require__(6570);
+// EXTERNAL MODULE: ./src/inputJson/defaultConfig.json
+var defaultConfig = __webpack_require__(9711);
 ;// CONCATENATED MODULE: ./src/components/FormBuilder.js
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4585,7 +4534,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-// import FormContent from "../formComponents/FormContent";
+
 
 
 
@@ -4609,11 +4558,20 @@ var FormBuilder = function FormBuilder(props) {
     validatedConfig = props.validatedConfig,
     validator = props.validator,
     configKey = props.configKey,
-    siteKey = props.siteKey;
-  var _useState = (0,react.useState)(null),
+    siteKey = props.siteKey,
+    viewConfig = props.viewConfig;
+  var _useState = (0,react.useState)(defaultConfig),
     _useState2 = _slicedToArray(_useState, 2),
-    selectedAcc = _useState2[0],
-    setSelectedAcc = _useState2[1];
+    formData = _useState2[0],
+    setFormData = _useState2[1];
+  var _useState3 = (0,react.useState)(),
+    _useState4 = _slicedToArray(_useState3, 2),
+    jsonData = _useState4[0],
+    setJsonData = _useState4[1];
+  var _useState5 = (0,react.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    selectedAcc = _useState6[0],
+    setSelectedAcc = _useState6[1];
   var formConfigs = [authentication/* default */.Z, searchBox/* default */.Z, products/* default */.Z, facets/* default */.Z, pagination/* default */.Z, pageSize/* default */.Z, sorting/* default */.Z, productView/* default */.Z, breadcrumbs/* default */.Z, spellCheck/* default */.Z, banners/* default */.Z, variants/* default */.Z, swatches/* default */.Z, noResults/* default */.Z, loader/* default */.Z, others];
   var showContent = function showContent(i) {
     if (selectedAcc == i) {
@@ -4626,11 +4584,11 @@ var FormBuilder = function FormBuilder(props) {
 
   return /*#__PURE__*/react.createElement("div", {
     className: "formBuilder"
-  }, /*#__PURE__*/react.createElement(FormIcons/* default */.Z, {
+  }, viewConfig && /*#__PURE__*/react.createElement(FormIcons/* default */.Z, {
     formConfigs: formConfigs,
     showContent: showContent,
     selectedAcc: selectedAcc
-  }), /*#__PURE__*/react.createElement(FormContent/* default */.Z, {
+  }), viewConfig && /*#__PURE__*/react.createElement(FormContent/* default */.Z, {
     formConfigs: formConfigs,
     selectedAcc: selectedAcc,
     setSelectedAcc: setSelectedAcc,
@@ -4638,10 +4596,303 @@ var FormBuilder = function FormBuilder(props) {
     validatedConfig: validatedConfig,
     validator: validator,
     siteKey: siteKey,
-    configKey: configKey
+    configKey: configKey,
+    formData: formData,
+    setFormData: setFormData,
+    jsonData: jsonData,
+    setJsonData: setJsonData
+  }), !viewConfig && /*#__PURE__*/react.createElement(FormCode/* default */.Z, {
+    selectedAcc: selectedAcc,
+    setSelectedAcc: setSelectedAcc,
+    formData: formData,
+    siteKey: siteKey,
+    configKey: configKey,
+    setFormData: setFormData,
+    jsonData: jsonData,
+    setJsonData: setJsonData
   }));
 };
 /* harmony default export */ var components_FormBuilder = (FormBuilder);
+
+/***/ }),
+
+/***/ 2986:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+/* harmony import */ var unbxd_react_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5834);
+/* harmony import */ var _uiw_react_codemirror__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6696);
+/* harmony import */ var _codemirror_lang_javascript__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7144);
+/* harmony import */ var _inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9711);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+
+
+
+
+
+var FormCode = function FormCode(props) {
+  var selectedAcc = props.selectedAcc,
+    setSelectedAcc = props.setSelectedAcc,
+    formData = props.formData,
+    setFormData = props.setFormData,
+    jsonData = props.jsonData,
+    setJsonData = props.setJsonData,
+    siteKey = props.siteKey,
+    configKey = props.configKey;
+  var inputJSONFile = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var inputFileChange = function inputFileChange(e) {
+    var jsonFile = e.target.files[0];
+    var encodedData;
+    var fileReader = new FileReader();
+    fileReader.readAsDataURL(jsonFile);
+    fileReader.onload = function (e) {
+      try {
+        encodedData = e.target.result.replace("data:application/json;base64,", "");
+        // console.log("typeof atob:", typeof window.atob(encodedData));
+
+        exportAllJS("import", window.atob(encodedData));
+        setFormData(JSON.parse(window.atob(encodedData)));
+        // setJsonData(
+        // 	exportAllJS("import", JSON.parse(window.atob(encodedData)))
+        // );
+        // convertJsonToJs(window.atob(encodedData));
+        // setJsonData(window.atob(encodedData));
+        // setFormData(JSON.parse(window.atob(encodedData)));
+        // validator(JSON.parse(window.atob(encodedData)));
+        // console.log("encodedData:", JSON.parse(window.atob(encodedData)));
+        setSelectedAcc(null);
+      } catch (err) {
+        // displayError("File Type does not seem to be in the form of .json");
+        console.log('err arrrrrr', err);
+        e.target.value = "";
+        return;
+      }
+    };
+    e.target.value = "";
+  };
+  var exportIndividualJS = function exportIndividualJS(code) {
+    var configObjInner = "\t{\n";
+    for (var _i = 0, _Object$keys = Object.keys(code); _i < _Object$keys.length; _i++) {
+      var key = _Object$keys[_i];
+      // console.log(key, typeof code[key]);
+      if (typeof code[key] === "string") {
+        // console.log("string:", key);
+        try {
+          var ele = JSON.parse(code[key]);
+          // console.log("JSON.parse:", key);
+          configObjInner += "\t\t".concat(key, ": ").concat(code[key], ", \n");
+        } catch (arrErr) {
+          try {
+            //element
+            var _ele = eval(code[key]);
+            // console.log("eval:", key, code[key]);
+            configObjInner += "\t\t".concat(key, ": `").concat(code[key], "`, \n");
+            // console.log("eval element:", key);
+          } catch (eleErr) {
+            try {
+              //function
+              var _ele2 = eval("(" + code[key] + ")");
+              // console.log("eval func:", key);
+              configObjInner += "\t\t".concat(key, ": ").concat(code[key], ", \n");
+              // console.log("eval function:", key);
+            } catch (funcErr) {
+              // console.log("not in eval:", key);
+              configObjInner += "\t\t".concat(key, ": `").concat(code[key], "`, \n");
+              // console.log("not in eval:", key);
+            }
+          }
+        }
+      } else if (typeof code[key] === "number") {
+        configObjInner += "\t\t".concat(key, ": ").concat(code[key].toString(), ", \n");
+      } else if (typeof code[key] === "boolean") {
+        configObjInner += "\t\t".concat(key, ": ").concat(code[key].toString(), ", \n");
+      }
+    }
+    configObjInner += "\t}";
+    // console.log("configObjInner:", configObjInner);
+    return configObjInner;
+  };
+  var exportAllJS = function exportAllJS(cond, code) {
+    // console.log("in export:", cond, code);
+
+    // console.log("configObj:", configObj)
+
+    if (cond === "export") {
+      // console.log("configObj:", configObj);
+      var configObj = "{\n";
+      for (var _i2 = 0, _Object$keys2 = Object.keys(formData); _i2 < _Object$keys2.length; _i2++) {
+        var key = _Object$keys2[_i2];
+        // console.log(key);
+        if (typeof formData[key] === "string") {
+          try {
+            //element
+            var ele = eval(formData[key]);
+            configObj += "\t".concat(key, ": `").concat(formData[key], "`, \n");
+          } catch (eleErr) {
+            configObj += "\t".concat(key, ": `").concat(formData[key], "`, \n");
+          }
+        } else if (_typeof(formData[key]) === "object") {
+          // console.log(`***********\n${key}`);
+          configObj += "\t".concat(key, ": ").concat(exportIndividualJS(formData[key]), ", \n");
+          // console.log(`\n***********`);
+          // exportIndividualJSON(formData[key]);
+        }
+      }
+
+      configObj += "}";
+      var exportString = "const config = ".concat(configObj);
+      var jsonString = "data:text/javascript;chatset=utf-8,".concat(encodeURIComponent(exportString));
+      var link = document.createElement("a");
+      link.href = jsonString;
+      link.download = "".concat(formData.siteKey).concat(configKey !== undefined && configKey.length > 0 ? "-".concat(configKey) : "", ".js");
+      // link.download = "configurations.json";
+      link.click();
+    } else {
+      // console.log("importing:", configObj, code);
+      // setJsonData(configObj);
+      var _configObj = "{\n";
+      for (var _i3 = 0, _Object$keys3 = Object.keys(code); _i3 < _Object$keys3.length; _i3++) {
+        var _key = _Object$keys3[_i3];
+        // console.log(key);
+        if (typeof code[_key] === "string") {
+          try {
+            //element
+            var _ele3 = eval(code[_key]);
+            _configObj += "\t".concat(_key, ": `").concat(code[_key], "`, \n");
+          } catch (eleErr) {
+            _configObj += "\t".concat(_key, ": `").concat(code[_key], "`, \n");
+          }
+        } else if (_typeof(code[_key]) === "object") {
+          _configObj += "\t".concat(_key, ": ").concat(exportIndividualJS(code[_key]), ", \n");
+          // exportIndividualJSON(formData[key]);
+        }
+      }
+
+      _configObj += "}";
+      return _configObj;
+    }
+  };
+  var downloadJSON = function downloadJSON() {
+    // document.getElementById("viewMoreDropdown").style.display = "none";
+    var jsonString = "data:text/json;chatset=utf-8,".concat(encodeURIComponent(JSON.stringify(formData, null, 4)));
+    var link = document.createElement("a");
+    link.href = jsonString;
+    link.download = "".concat(formData.siteKey).concat(configKey !== undefined && configKey.length > 0 ? "-".concat(configKey) : "", ".json");
+    // link.download = "configurations.json";
+    link.click();
+  };
+  var resetJSON = function resetJSON() {
+    console.log("Configurations have been reset.");
+    // displayInfo(
+    // 	"Configurations have been reset. Default configurations have been applied."
+    // );
+    // document.getElementById("viewMoreDropdown").style.display = "none";
+    // viewJSONModalRef.current.hideModal();
+    setSelectedAcc(null);
+    setFormData(_inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_2__);
+    // setJsonData(exportAllJS("import", defaultConfig));
+    // validator(defaultConfig);
+  };
+
+  var applyImportedCode = function applyImportedCode(code) {
+    console.log("code type:", _typeof(code), code);
+    try {
+      console.log("parsing...");
+      var parsedCode = JSON.parse(code);
+      setFormData(parsedCode);
+      // validator(parsedCode);
+      // setJsonData();
+      setSelectedAcc(null);
+      // console.log("parsedCode");
+    } catch (err) {
+      console.log("evaluating");
+      var escapedCode = "{\n\t\t\t\tloader: {\n\t\t\t\t\tel: `document.getElementById(\"loaderEl\")`\n\t\t\t\t}\n\t\t\t}";
+      var evalSub = new Function("a", "return " + escapedCode);
+      console.log(evalSub(escapedCode));
+      // console.log(new Function("return " + escapedCode)());
+      // console.log("validatedCode:", validatedCode);
+      // const validatedCode = eval(`(${code})`);
+      // const parsedCode = evaluateAll(validatedCode);
+      // setFormData(JSON.parse(parsedCode));
+      // validator(JSON.parse(parsedCode));
+      // setJsonData();
+      // setSelectedAcc(null);
+      // console.log("validatedCode");
+    }
+  };
+
+  var copyJSON = function copyJSON() {
+    navigator.clipboard.writeText(JSON.stringify(formData, null, 4));
+    // document.querySelector(".viewMoreDropdown").style.display = "none";
+    viewJSONModalRef.current.hideModal();
+    // console.log("Copied JSON!");
+    // displaySuccess("Copied JSON!");
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "formCode"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "btnSection"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_3__/* .Button */ .zx, {
+    appearance: "primary",
+    onClick: function onClick() {
+      inputJSONFile.current.click();
+    }
+  }, "Import JSON file"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "file",
+    onChange: inputFileChange,
+    ref: inputJSONFile,
+    style: {
+      display: "none"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_3__/* .Button */ .zx, {
+    appearance: "primary",
+    onClick: function onClick() {
+      return exportAllJS("export");
+    }
+  }, "Download as JS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_3__/* .Button */ .zx, {
+    appearance: "primary",
+    onClick: function onClick() {
+      return downloadJSON();
+    }
+  }, "Download as JSON"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_3__/* .Button */ .zx, {
+    appearance: "primary",
+    onClick: function onClick() {
+      return copyJSON();
+    }
+  }, "Copy Code"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_3__/* .Button */ .zx, {
+    appearance: "primary",
+    onClick: function onClick() {
+      return resetJSON();
+    }
+  }, "Reset Code")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "formjson",
+    id: "formjson"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_uiw_react_codemirror__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .ZP
+  // readOnly={true}
+  , {
+    id: "jsonCode",
+    className: "jsonCode"
+    // value={jsonData}
+    // value={exportAllJS("import", formData)}
+    ,
+    value: JSON.stringify(formData, null, 4),
+    placeholder: "Insert code here...",
+    height: "100%",
+    width: "100%",
+    extensions: [(0,_codemirror_lang_javascript__WEBPACK_IMPORTED_MODULE_4__/* .javascript */ .eJ)({
+      json: true
+    })],
+    onChange: function onChange(code) {
+      setFormData(JSON.parse(code));
+      // setJsonData(code);
+    }
+  })));
+};
+
+/* harmony default export */ __webpack_exports__.Z = (FormCode);
 
 /***/ }),
 
@@ -4659,6 +4910,9 @@ var FormBuilder = function FormBuilder(props) {
 /* harmony import */ var _formElements_CustomCheck__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6396);
 /* harmony import */ var _formElements_CustomRadio__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2309);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2861);
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -4695,39 +4949,35 @@ var FormContent = function FormContent() {
     validatedConfig = props.validatedConfig,
     validator = props.validator,
     siteKey = props.siteKey,
-    configKey = props.configKey;
+    configKey = props.configKey,
+    formData = props.formData,
+    setFormData = props.setFormData,
+    jsonData = props.jsonData,
+    setJsonData = props.setJsonData;
 
   // let masterConfig = {};
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
-    formData = _useState2[0],
-    setFormData = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    fsCodeEditorData = _useState2[0],
+    setFSCodeEditorData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState4 = _slicedToArray(_useState3, 2),
-    jsonData = _useState4[0],
-    setJsonData = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    publishedBuilderLink = _useState4[0],
+    setPublishedBuilderLink = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState6 = _slicedToArray(_useState5, 2),
-    fsCodeEditorData = _useState6[0],
-    setFSCodeEditorData = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    publishedPreviewLink = _useState6[0],
+    setPublishedPreviewLink = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("NO"),
     _useState8 = _slicedToArray(_useState7, 2),
-    publishedBuilderLink = _useState8[0],
-    setPublishedBuilderLink = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
-    _useState10 = _slicedToArray(_useState9, 2),
-    publishedPreviewLink = _useState10[0],
-    setPublishedPreviewLink = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("NO"),
-    _useState12 = _slicedToArray(_useState11, 2),
-    customFileNameBool = _useState12[0],
-    setCustomFileNameBool = _useState12[1];
+    customFileNameBool = _useState8[0],
+    setCustomFileNameBool = _useState8[1];
   // const [customFileNameBool, setCustomFileNameBool] = useState(false);
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(configKey !== undefined && configKey.length > 0 ? configKey : ""),
-    _useState14 = _slicedToArray(_useState13, 2),
-    customFileName = _useState14[0],
-    setCustomFileName = _useState14[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(configKey !== undefined && configKey.length > 0 ? configKey : ""),
+    _useState10 = _slicedToArray(_useState9, 2),
+    customFileName = _useState10[0],
+    setCustomFileName = _useState10[1];
 
   // console.log("formData:", formData);
 
@@ -4735,14 +4985,14 @@ var FormContent = function FormContent() {
   var viewJSONModalRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var publishSuccessModalRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var importCodeModalRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState16 = _slicedToArray(_useState15, 2),
-    publishPopUp = _useState16[0],
-    setPublishPopUp = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState18 = _slicedToArray(_useState17, 2),
-    publishStatus = _useState18[0],
-    setPublishStatus = _useState18[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    publishPopUp = _useState12[0],
+    setPublishPopUp = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    publishStatus = _useState14[0],
+    setPublishStatus = _useState14[1];
   var inputJSONFile = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   // const updateMasterConfig = (formConfigs) => {
@@ -4770,72 +5020,83 @@ var FormContent = function FormContent() {
       setJsonData(exportAllJS("import", _objectSpread(_objectSpread({}, formData), data)));
     }
   };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // console.log("siteKey:", siteKey, "configKey:", configKey);
-    if (siteKey !== undefined && configKey !== undefined) {
-      // console.log("retrieving configs");
-      // debugger;
-      if (localStorage.getItem("config-".concat(siteKey, "-").concat(configKey)) !== null) {
-        var config = localStorage.getItem("config-".concat(siteKey, "-").concat(configKey));
-        console.log("useEffect localstorage defined");
-        setFormData(JSON.parse(config));
-        setJsonData(exportAllJS("import", JSON.parse(config)));
-        // validator(JSON.parse(config));
-        // displaySuccess("Retrieved and applied configurations.");
-      } else {
-        axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.get("http://localhost:5000/retrieve", {
-          params: {
-            siteKey: siteKey,
-            configKey: configKey
-          }
-        }).then(function (response) {
-          // handle success
-          if (response.data.status === "error") {
-            // console.log(
-            // 	"No saved configurations found. Applying default configurations."
-            // );
-            console.log("useEffect axios error defined");
-            setFormData(_inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__);
-            setJsonData(exportAllJS("import", _inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__));
-            // displayError(
-            // 	`No saved configurations found. Applying default configurations.`
-            // );
-            return;
-          }
 
-          // console.log("No error, continuing.");
-          console.log("useEffect axios noerror defined");
-          setFormData(response.data.config);
-          setJsonData(exportAllJS("import", response.data.config));
-          // displaySuccess("Retrieved and applied configurations.");
-        }).catch(function (error) {
-          // handle error
-          console.error("Could not retrieve the configurations as server is down.");
-          // console.log(error.message);
-          setFormData(_inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__);
-          setJsonData(exportAllJS("import", _inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__));
-          // displayError(
-          // 	`${error.message}: Server is down. Could not retrieve configurations.`
-          // );
-        });
-      }
-    } else {
-      // console.log(localStorage.getItem("config"));
-      if (localStorage.getItem("config") === null) {
-        console.log("useEffect nolocalStorage undefined");
-        setFormData(_inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__);
-        setJsonData(exportAllJS("import", _inputJson_defaultConfig_json__WEBPACK_IMPORTED_MODULE_3__));
-        // displayInfo("Default configurations have been applied.");
-      } else {
-        var _config = localStorage.getItem("config");
-        console.log("useEffect localStorage undefined");
-        setFormData(JSON.parse(_config));
-        setJsonData(exportAllJS("import", JSON.parse(_config)));
-        // (config);
-        // displaySuccess("Retrieved and applied saved changes.");
-      }
-    }
-  }, []);
+  // useEffect(()=>{
+  // 	const config = localStorage.getItem('config');
+  // 	if(config){
+  // 		setFormData(JSON.parse(config))
+  // 	}
+  // }, [])
+
+  // useEffect(() => {
+  // 	// console.log("siteKey:", siteKey, "configKey:", configKey);
+  // 	if (siteKey !== undefined && configKey !== undefined) {
+  // 		// console.log("retrieving configs");
+  // 		// debugger;
+  // 		if (localStorage.getItem(`config-${siteKey}-${configKey}`) !== null) {
+  // 			let config = localStorage.getItem(`config-${siteKey}-${configKey}`);
+  // 			console.log("useEffect localstorage defined");
+  // 			setFormData(JSON.parse(config));
+  // 			setJsonData(exportAllJS("import", JSON.parse(config)));
+  // 			// validator(JSON.parse(config));
+  // 			// displaySuccess("Retrieved and applied configurations.");
+  // 		} else {
+  // 			axios
+  // 				.get("http://localhost:5000/retrieve", {
+  // 					params: { siteKey: siteKey, configKey: configKey },
+  // 				})
+  // 				.then((response) => {
+  // 					// handle success
+  // 					if (response.data.status === "error") {
+  // 						// console.log(
+  // 						// 	"No saved configurations found. Applying default configurations."
+  // 						// );
+  // 						console.log("useEffect axios error defined");
+  // 						setFormData(defaultConfig);
+  // 						setJsonData(exportAllJS("import", defaultConfig));
+  // 						// displayError(
+  // 						// 	`No saved configurations found. Applying default configurations.`
+  // 						// );
+  // 						return;
+  // 					}
+
+  // 					// console.log("No error, continuing.");
+  // 					console.log("useEffect axios noerror defined");
+  // 					setFormData(response.data.config);
+  // 					setJsonData(exportAllJS("import", response.data.config));
+  // 					// displaySuccess("Retrieved and applied configurations.");
+  // 				})
+  // 				.catch((error) => {
+  // 					// handle error
+  // 					console.error(
+  // 						"Could not retrieve the configurations as server is down."
+  // 					);
+  // 					// console.log(error.message);
+  // 					setFormData(defaultConfig);
+  // 					setJsonData(exportAllJS("import", defaultConfig));
+  // 					// displayError(
+  // 					// 	`${error.message}: Server is down. Could not retrieve configurations.`
+  // 					// );
+  // 				});
+  // 		}
+  // 	} else {
+  // 		// console.log(localStorage.getItem("config"));
+  // 		if (localStorage.getItem("config") === null) {
+  // 			console.log("useEffect nolocalStorage undefined");
+  // 			setFormData(defaultConfig);
+  // 			setJsonData(exportAllJS("import", defaultConfig));
+  // 			// displayInfo("Default configurations have been applied.");
+  // 		} else {
+  // 			let config = localStorage.getItem("config");
+  // 			console.log("useEffect localStorage undefined");
+  // 			setFormData(JSON.parse(config));
+  // 			setJsonData(exportAllJS("import", JSON.parse(config)));
+  // 			// (config);
+  // 			// displaySuccess("Retrieved and applied saved changes.");
+  // 		}
+  // 	}
+  // }, []);
+
   var handlePublishStatus = function handlePublishStatus() {
     setPublishPopUp(false);
     confirmModalRef.current.hideModal();
@@ -5095,8 +5356,9 @@ var FormContent = function FormContent() {
     return JSON.stringify(stringifiedConfig, null, 4);
   };
   var applyImportedCode = function applyImportedCode(code) {
-    console.log("code type:", _typeof(code));
+    console.log("code type:", _typeof(code), code);
     try {
+      console.log("parsing...");
       var parsedCode = JSON.parse(code);
       setFormData(parsedCode);
       validator(parsedCode);
@@ -5104,12 +5366,18 @@ var FormContent = function FormContent() {
       setSelectedAcc(null);
       // console.log("parsedCode");
     } catch (err) {
-      var validatedCode = eval("(".concat(code, ")"));
-      var _parsedCode = evaluateAll(validatedCode);
-      setFormData(JSON.parse(_parsedCode));
-      validator(JSON.parse(_parsedCode));
+      console.log("evaluating");
+      var escapedCode = "{\n\t\t\t\tloader: {\n\t\t\t\t\tel: `document.getElementById(\"loaderEl\")`\n\t\t\t\t}\n\t\t\t}";
+      var evalSub = new Function("a", "return " + escapedCode);
+      console.log(evalSub(escapedCode));
+      // console.log(new Function("return " + escapedCode)());
+      // console.log("validatedCode:", validatedCode);
+      // const validatedCode = eval(`(${code})`);
+      // const parsedCode = evaluateAll(validatedCode);
+      // setFormData(JSON.parse(parsedCode));
+      // validator(JSON.parse(parsedCode));
       // setJsonData();
-      setSelectedAcc(null);
+      // setSelectedAcc(null);
       // console.log("validatedCode");
     }
   };
@@ -5147,6 +5415,7 @@ var FormContent = function FormContent() {
         "Content-Type": "application/json"
       }
     };
+    // localStorage.setItem('config', JSON.stringify(formData, null, 4))
     axios__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z.post("http://localhost:5050/bundleScripts", JSON.stringify({
       config: formData,
       version: 'v2.0.38'
@@ -5161,9 +5430,15 @@ var FormContent = function FormContent() {
       // 		});
       // 	}
       // );
+      // localStorage.setItem('config', JSON.stringify(formData, null, 4))
+
+      chrome.runtime.sendMessage({
+        message: "on_cdn_url"
+      }, function (response) {
+        console.log(response.message);
+      });
     });
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "formContent"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -5196,42 +5471,51 @@ var FormContent = function FormContent() {
     })));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "btnSection"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .InlineModal */ .g3, {
-    activatorAction: "click",
-    className: "viewMoreDropdown",
-    halign: "left",
-    isModalOpen: false
-    // onModalStateChange={function noRefCheck() {}}
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .InlineModalActivator */ .Vm, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "More Options")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .InlineModalBody */ .xP, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "viewCode",
-    onClick: function onClick() {
-      setSelectedAcc(null);
-      viewJSONModalRef.current.showModal();
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null), "View Code"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "uploadToCDN",
-    onClick: function onClick() {
-      // document.getElementById("viewMoreDropdown").style.display =
-      // 	"none";
-      confirmModalRef.current.showModal();
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null), "Create Demo Site"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     id: "applyBtn",
-    onClick: function onClick() {
-      // validator(formData);
-      testApiCall();
-      // console.log('button clicked')
-      // chrome.tabs.query(
-      // 	{ active: true, currentWindow: true },
-      // 	(tabs) => {
-      // 		chrome.tabs.sendMessage(tabs[0].id, {
-      // 			message: "apply_changes",
-      // 			config: formData
-      // 		});
-      // 	}
-      // );
-    },
+    onClick: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            testApiCall();
+            // validator(formData);
 
+            // console.log("Clicked on Apply Changes!");
+            // chrome.tabs.query(
+            // 	{ active: true, currentWindow: true },
+            // 	(tabs) => {
+            // 		chrome.tabs.sendMessage(tabs[0].id, {
+            // 			message: "insertScript",
+            // 		});
+            // 	}
+            // );
+            // chrome.runtime.sendMessage((response) => {
+            // 	console.log("Response received:", response);
+            // });
+            // chrome.runtime.sendMessage(
+            // 	{ text: "get-user-data", config: formData },
+            // 	(response) => {
+            // 		// 3. Got an asynchronous response with the data from the service worker
+            // 		console.log("received user data:", response);
+            // 		// initializeUI(response);
+            // 	}
+            // );
+            // chrome.tabs.query(
+            // 	{ active: true, currentWindow: true },
+            // 	(tabs) => {
+            // 		chrome.tabs.sendMessage(tabs[0].id, {
+            // 			message: "apply_changes",
+            // 		}, (response)=>{
+            // 			console.log(response)
+            // 		});
+            // 	}
+            // );
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    })),
     className: "RCB-btn-primary"
   }, "Apply Changes"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .Modal */ .u_, {
     title: "Configurations Code",
@@ -5265,7 +5549,9 @@ var FormContent = function FormContent() {
     onClick: function onClick() {
       return downloadJSON();
     }
-  }, "Download as JSON"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .Button */ .zx, {
+  }, "Download as JSON")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "btnSection"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .Button */ .zx, {
     appearance: "primary",
     onClick: function onClick() {
       return copyJSON();
@@ -5282,11 +5568,11 @@ var FormContent = function FormContent() {
   // readOnly={true}
   , {
     id: "jsonCode",
-    className: "jsonCode",
-    value: jsonData
+    className: "jsonCode"
+    // value={jsonData}
     // value={exportAllJS("import", formData)}
-    // value={JSON.stringify(formData, null, 4)}
     ,
+    value: JSON.stringify(formData, null, 4),
     placeholder: "Insert code here...",
     height: "100%",
     width: "100%",
@@ -5294,7 +5580,8 @@ var FormContent = function FormContent() {
       json: true
     })],
     onChange: function onChange(code) {
-      return setJsonData(code);
+      setFormData(JSON.parse(code));
+      setJsonData(code);
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "modal-footer"
@@ -5302,7 +5589,7 @@ var FormContent = function FormContent() {
     appearance: "primary",
     className: "update-json",
     onClick: function onClick() {
-      applyImportedCode(jsonData);
+      applyImportedCode(JSON.stringify(formData, null, 4));
       viewJSONModalRef.current.hideModal();
     }
   }, "Close"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(unbxd_react_components__WEBPACK_IMPORTED_MODULE_8__/* .Modal */ .u_, {
@@ -5363,7 +5650,8 @@ var FormContent = function FormContent() {
     appearance: "primary",
     className: "update-json",
     onClick: function onClick() {
-      applyImportedCode(jsonData);
+      applyImportedCode(JSON.stringify(formData, null, 4));
+      // applyImportedCode(jsonData);
       importCodeModalRef.current.hideModal();
     }
   }, "Update"))));
@@ -5404,6 +5692,33 @@ var FormIcons = function FormIcons(props) {
   }));
 };
 /* harmony default export */ __webpack_exports__.Z = (FormIcons);
+
+/***/ }),
+
+/***/ 3922:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7294);
+
+
+var FormOptions = function FormOptions(props) {
+  var changeMode = props.changeMode;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "formOptions"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "config",
+    onClick: function onClick() {
+      return changeMode(true);
+    }
+  }, "Config"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "code",
+    onClick: function onClick() {
+      return changeMode(false);
+    }
+  }, "Code"));
+};
+/* harmony default export */ __webpack_exports__.Z = (FormOptions);
 
 /***/ }),
 
@@ -18208,24 +18523,24 @@ Object.defineProperty(exports, "l0", ({
     return _components.Form;
   }
 }));
-Object.defineProperty(exports, "g3", ({
+__webpack_unused_export__ = ({
   enumerable: true,
   get: function get() {
     return _components.InlineModal;
   }
-}));
-Object.defineProperty(exports, "Vm", ({
+});
+__webpack_unused_export__ = ({
   enumerable: true,
   get: function get() {
     return _InlineModal.InlineModalActivator;
   }
-}));
-Object.defineProperty(exports, "xP", ({
+});
+__webpack_unused_export__ = ({
   enumerable: true,
   get: function get() {
     return _InlineModal.InlineModalBody;
   }
-}));
+});
 Object.defineProperty(exports, "II", ({
   enumerable: true,
   get: function get() {
@@ -56463,6 +56778,42 @@ var react_dom = __webpack_require__(3935);
 
 // EXTERNAL MODULE: ./src/components/FormIcons.js
 var FormIcons = __webpack_require__(7333);
+// EXTERNAL MODULE: ./node_modules/unbxd-react-components/index.js
+var unbxd_react_components = __webpack_require__(5834);
+;// CONCATENATED MODULE: ./src/components/DashboardHeader.js
+
+
+
+var DashboardHeader = function DashboardHeader(props) {
+  return /*#__PURE__*/react.createElement("div", {
+    className: "dashHead"
+  }, /*#__PURE__*/react.createElement("div", {
+    className: "desc"
+  }, /*#__PURE__*/react.createElement("a", {
+    className: "logoWrapper",
+    href: "/"
+  }, /*#__PURE__*/react.createElement("div", {
+    className: "logo"
+  })), /*#__PURE__*/react.createElement("h1", null, "SDK WORKBENCH")), /*#__PURE__*/react.createElement(unbxd_react_components/* Dropdown */.Lt
+  // label="SDK Version"
+  , {
+    name: "version",
+    className: "versionDropdown",
+    appearance: "block",
+    noSelectionLabel: "Version",
+    onChange: function onChange() {
+      return console.log("Changed SDK version");
+    },
+    options: [{
+      id: 1,
+      name: "v2.0.38"
+    }, {
+      id: 2,
+      name: "v2.0.37"
+    }]
+  }));
+};
+/* harmony default export */ var components_DashboardHeader = (DashboardHeader);
 // EXTERNAL MODULE: ./src/components/DashboardContent.js
 var DashboardContent = __webpack_require__(7172);
 ;// CONCATENATED MODULE: ./src/App.js
@@ -56482,6 +56833,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+// import "./components/unbxdStyle.css";
 
 
 
@@ -56500,7 +56852,7 @@ var App = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/react.createElement("div", {
         className: "extension-body"
-      }, /*#__PURE__*/react.createElement(DashboardContent/* default */.Z, null));
+      }, /*#__PURE__*/react.createElement(components_DashboardHeader, null), /*#__PURE__*/react.createElement(DashboardContent/* default */.Z, null));
     }
   }]);
   return App;

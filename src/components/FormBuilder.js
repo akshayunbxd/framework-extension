@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 import "./builder.scss";
 import FormIcons from "./FormIcons";
-// import FormContent from "../formComponents/FormContent";
+import FormContent from "./FormContent";
+import FormCode from "./FormCode";
 
 import authConfig from "../config/formConfig/authentication";
 import searchBoxConfig from "../config/formConfig/searchBox";
@@ -20,12 +21,21 @@ import swatchesConfig from "../config/formConfig/swatches";
 import noResultsConfig from "../config/formConfig/noResults";
 import loaderConfig from "../config/formConfig/loader";
 import othersConfig from "../config/formConfig/others";
-import FormContent from "./FormContent";
+
+import defaultConfig from "../inputJson/defaultConfig.json";
 
 const FormBuilder = (props) => {
-	const { setValidatedConfig, validatedConfig, validator, configKey, siteKey } =
-		props;
+	const {
+		setValidatedConfig,
+		validatedConfig,
+		validator,
+		configKey,
+		siteKey,
+		viewConfig,
+	} = props;
 
+	const [formData, setFormData] = useState(defaultConfig);
+	const [jsonData, setJsonData] = useState();
 	const [selectedAcc, setSelectedAcc] = useState(null);
 	const formConfigs = [
 		authConfig,
@@ -57,21 +67,41 @@ const FormBuilder = (props) => {
 
 	return (
 		<div className="formBuilder">
-			<FormIcons
-				formConfigs={formConfigs}
-				showContent={showContent}
-				selectedAcc={selectedAcc}
-			/>
-			<FormContent
-				formConfigs={formConfigs}
-				selectedAcc={selectedAcc}
-				setSelectedAcc={setSelectedAcc}
-				setValidatedConfig={setValidatedConfig}
-				validatedConfig={validatedConfig}
-				validator={validator}
-				siteKey={siteKey}
-				configKey={configKey}
-			/>
+			{viewConfig && (
+				<FormIcons
+					formConfigs={formConfigs}
+					showContent={showContent}
+					selectedAcc={selectedAcc}
+				/>
+			)}
+			{viewConfig && (
+				<FormContent
+					formConfigs={formConfigs}
+					selectedAcc={selectedAcc}
+					setSelectedAcc={setSelectedAcc}
+					setValidatedConfig={setValidatedConfig}
+					validatedConfig={validatedConfig}
+					validator={validator}
+					siteKey={siteKey}
+					configKey={configKey}
+					formData={formData}
+					setFormData={setFormData}
+					jsonData={jsonData}
+					setJsonData={setJsonData}
+				/>
+			)}
+			{!viewConfig && (
+				<FormCode
+					selectedAcc={selectedAcc}
+					setSelectedAcc={setSelectedAcc}
+					formData={formData}
+					siteKey={siteKey}
+					configKey={configKey}
+					setFormData={setFormData}
+					jsonData={jsonData}
+					setJsonData={setJsonData}
+				/>
+			)}
 		</div>
 	);
 };

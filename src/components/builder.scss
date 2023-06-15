@@ -4,8 +4,9 @@
 .formBuilder {
 	display: flex;
 	font-family: "Nunito Sans";
-	height: calc(100vh - 50px);
-	width: 30%;
+	margin-top: 2px;
+	height: 500px;
+	width: 750px;
 	min-width: 400px;
 	border-right: 1px solid #ccc;
 	box-shadow: 0px 0px 4px 0px #ccc;
@@ -232,8 +233,18 @@ form {
 		z-index: 2;
 		// width: 100%;
 
+		&[type="number"] {
+			margin-top: 4px;
+			width: 92%;
+		}
+
 		&[type="checkbox"] {
 			width: auto;
+		}
+
+		&[type="text"] {
+			margin-top: 4px;
+			width: 92%;
 		}
 
 		&[type="radio"] {

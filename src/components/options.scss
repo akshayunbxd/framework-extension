@@ -1,0 +1,24 @@
+.formOptions {
+	width: 750px;
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+	z-index: 6;
+
+	.config,
+	.code {
+		display: flex;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		width: 375px;
+		height: 50px;
+		background-color: #fff;
+		outline: 1px solid #ccc;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
